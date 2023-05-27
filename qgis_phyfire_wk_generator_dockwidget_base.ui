@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PhyFireWKGeneratorDockWidgetBase</class>
+ <widget class="QDockWidget" name="PhyFireWKGeneratorDockWidgetBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>528</width>
+    <height>464</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PhyFire Generator</string>
+  </property>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="titleLabel">
+          <property name="text">
+           <string>Título *</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="titleLineEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="fireEventLabel">
+          <property name="text">
+           <string>Fecha del incendio *</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDateTimeEdit" name="fireEventDateTimeEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="roiLabel">
+          <property name="text">
+           <string>ROI *</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QgsMapLayerComboBox" name="roiLayerComboBox"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="roiVirtualLayerButton">
+          <property name="minimumSize">
+           <size>
+            <width>33</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>40</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>icons/mActionAddBasicRectangle.svg</normaloff>icons/mActionAddBasicRectangle.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="fireSourceLabel">
+          <property name="text">
+           <string>Focos (FireSource) *</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QgsMapLayerComboBox" name="firesourceLayerComboBox"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="fireSourceVirtualLayerButton">
+          <property name="minimumSize">
+           <size>
+            <width>33</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>40</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>icons/mActionCapturePoint.svg</normaloff>icons/mActionCapturePoint.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="firebreaksLabel">
+          <property name="text">
+           <string>Corta fuegos (Firebreaks)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QgsMapLayerComboBox" name="firebreaksLayerComboBox"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="firebreaksVirtualLayerButton">
+          <property name="minimumSize">
+           <size>
+            <width>33</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>40</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>icons/mActionAddVirtualLayer.svg</normaloff>icons/mActionAddVirtualLayer.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="windLabel">
+          <property name="text">
+           <string>Puntos de viento (windpoints)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QgsMapLayerComboBox" name="windLayerComboBox"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="windVirtualLayerButton">
+          <property name="minimumSize">
+           <size>
+            <width>33</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>40</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>icons/mActionCapturePoint.svg</normaloff>icons/mActionCapturePoint.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QLabel" name="outputFolderLabel">
+          <property name="text">
+           <string>Carpeta Salida</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QgsFileWidget" name="outputFolderQgsFileWidget">
+          <property name="storageMode">
+           <enum>QgsFileWidget::GetDirectory</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="QPushButton" name="generateWKButton">
+          <property name="text">
+           <string>Crear proyecto</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="checkResourceButton">
+          <property name="maximumSize">
+           <size>
+            <width>36</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>icons/check-list.png</normaloff>icons/check-list.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="helpButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>1</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Ayuda</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsMapLayerComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsmaplayercombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
