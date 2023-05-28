@@ -163,3 +163,5 @@ examples/data/source/
 NotasDEVELOPER.txt
 scripts/scriptGDALNeptuno.py
 scripts/GDALNeptuno.sh
+.DS_Store
+examples/files/wk-skeleton/Data/_*.json

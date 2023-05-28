@@ -81,3 +81,13 @@ El plugin de QGIS se ha desarrollado dentro de la asignatura PROGRAMACIÓN OPEN 
 cd /Users/<USERNAME>/Library/Application\ Support/QGIS/QGIS3/profiles/default/python/plugins/qgis_phyfire_wk_generator && /Applications/QGIS.app/Contents/MacOS/bin/pb_tool compile
 ```
 
+ - Ejecutar simulación PhyFire desde un contenedor Docker:
+
+docker exec docker_fire-smoke-simulator-neptuno_1 bash -c "cd /Users/Shared/sinumcc/workspace/SAN_JUAN_DE_LA_NAVA && phyFire -f config.json"
+
+
+docker exec -it docker_fire-smoke-simulator-neptuno_1 /bin/sh
+docker exec docker_fire-smoke-simulator-neptuno_1 -it bash -c "cd /Users/Shared/sinumcc/workspace/CEBREROS && phyFire -f config.json"
+
+docker exec -it docker_fire-smoke-simulator-neptuno_1 /bin/sh
+docker exec docker_fire-smoke-simulator-neptuno_1 -it bash -c "cd /Users/Shared/sinumcc/workspace/SAN_JUAN_DE_LA_NAVA && phyFire -f config.json"

@@ -13,7 +13,7 @@ email=david.cifuentes@usal.es
 about=PhyFire configuration workspace generator. Generator of the folder structure, configuration files, layers and input parameters to execute a fire propagation simulation of the PhyFire engine with data from the Iberian peninsula. Simulation core developed by SINUMCC - USAL, it is not included in the plugin
 
 tracker=http://bugs
-repository=http://repo
+repository=https://github.com/dcifu/qgis_phyfire_wk_generator.git
 # End of mandatory metadata
 
 # Recommended items:
@@ -25,7 +25,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python
 
-homepage=http://homepage
+homepage=https://github.com/dcifu/qgis_phyfire_wk_generator
 category=Plugins
 icon=icon.png
 # experimental flag

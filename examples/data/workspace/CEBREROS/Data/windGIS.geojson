@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "windGIS",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": "59f1122d-933f-432a-8c9e-d3d92670a20d", "_status": "valid", "metadata": { "_tsheader": [ "datetime", "speed", "deg", "level", "temperature", "humidity" ], "_tsformat": [ "unixtimestamp", "m/s", "º", "m", "ºC", "%" ], "provider": "user" }, "timeseries": [ [ 1652620500, 20, 135, 3, 40, 44 ] ], "pointType": "input" }, "geometry": { "type": "Point", "coordinates": [ -4.398617483238421, 40.489785690841643 ] } }
+]
+}

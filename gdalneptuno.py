@@ -130,7 +130,8 @@ def runGDALNeptuno(pathfile, showOutput=False):
             srsBB=data.get('gisInfo')["srs_bbox"]
             if srsBB:
                 logOut = _logMsg(logOut," Projecting bbox coordinates " + srsBB + "---->" + srs,showOutput)
-                
+                logOut = _logMsg(logOut," Bbox ( "+ srsBB + "): [ " + str(xmin) + " " + str(ymin) + " " + str(xmax) + " " + str(ymax) +"]",showOutput)
+ 
                 projSource = int(srsBB[5:])
                 source = SpatialReference()
                 source.ImportFromEPSG(projSource)
@@ -141,8 +142,8 @@ def runGDALNeptuno(pathfile, showOutput=False):
                 
                 transform_epsg = CoordinateTransformation(source, target)
                 
-                cmin =transform_epsg.TransformPoint(xmin, ymin)
-                cmax =transform_epsg.TransformPoint(xmax, ymax)
+                cmin =transform_epsg.TransformPoint(ymin, xmin)
+                cmax =transform_epsg.TransformPoint(ymax, xmax)
                 
                 #cmdtransfmin = f'echo "{xmin} {ymin}" | gdaltransform -s_srs {srsBB} -t_srs {srs}'
                 #strcoordmin = subprocess.call([cmdtransfmin], shell=False)
@@ -308,7 +309,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
         layername="fueltypes"
         pre, ext = os.path.splitext(fuelTypeF)
         fuel_c_db = pre+ '.sqlite'
-        fuel_c_dbAbs = os.path.join(path_workspace, fuel_c_db)
+        fuel_c_dbAbs = os.path.join(path_workspace, fuel_c_db[2:])
         if os.path.isfile(fuel_c_dbAbs):
             os.remove(fuel_c_dbAbs)
         
@@ -379,13 +380,14 @@ def runGDALNeptuno(pathfile, showOutput=False):
         qgiscmd = QGISprefixPathBin + cmdogr
         os.system(qgiscmd)
         
-        if os.path.isfile(fccF):
-            os.remove(fccF)
+        fccFAbs = os.path.join(path_workspace, fccF[2:])
+        if os.path.isfile(fccFAbs):
+            os.remove(fccFAbs)
         #fccFrep = fccF.replace(' ','\\ ')
         cmdrasterize = f'gdal_rasterize  -i -a "fid" -l {layername} -of "GTiff" -a_srs {srs} -a_nodata {nodata} \
                     -te  {xmin} {ymin} {xmax} {ymax} -tr {cellSize} {cellSize} \
                     -ot "Byte" \
-                    "{fcc_c_dbAbs}" "{fccF}"  >> "{path_LogNeptunoGDAL}"'
+                    "{fcc_c_dbAbs}" "{fccFAbs}"  >> "{path_LogNeptunoGDAL}"'
         qgiscmd = QGISprefixPathBin + cmdrasterize
         os.system(qgiscmd)
         
@@ -396,21 +398,22 @@ def runGDALNeptuno(pathfile, showOutput=False):
             logOut = _logMsg(logOut,"            ----> " +fccFasc,showOutput)
            
             cmdtranslate = f'gdal_translate -stats -of AAIGrid -co force_cellsize=true -ot "Int16" \
-            "{fccF}" {fccFasc}  >> "{path_LogNeptunoGDAL}"'
+            "{fccFAbs}" {fccFasc}  >> "{path_LogNeptunoGDAL}"'
             qgiscmd = QGISprefixPathBin + cmdtranslate
             os.system(qgiscmd)
   
   
     #temperatureDB
     if tempQ:
-        if os.path.isfile(temperatureF):
-            os.remove(temperatureF)
+        temperatureFAbs = os.path.join(path_workspace, temperatureF[2:])
+        if os.path.isfile(temperatureFAbs):
+            os.remove(temperatureFAbs)
 
         logOut = _logMsg(logOut,"  temperat. ----> " + temperatureF,showOutput)
 
         cmdwarp = f'gdalwarp -of "GTiff" -tr {cellSize} -{cellSize} -dstnodata {nodata} \
             -te {xmin} {ymin} {xmax} {ymax} -t_srs {srs} -ot "Float32" \
-            "{temperatureDB}" "{temperatureF}" >> "{path_LogNeptunoGDAL}"'
+            "{temperatureDB}" "{temperatureFAbs}" >> "{path_LogNeptunoGDAL}"'
         qgiscmd = QGISprefixPathBin + cmdwarp
         os.system(qgiscmd)
         
