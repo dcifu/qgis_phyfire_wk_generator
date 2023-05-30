@@ -11,7 +11,7 @@ from qgis.core import QgsApplication
 #from subprocess import Popen, PIPE
 
 
-QGISprefixPathBin =  os.path.join(QgsApplication.prefixPath(),'bin/')
+QGISprefixPathBin = os.path.join(QgsApplication.prefixPath(),'bin', '')
 
 
 def _logMsg(log, msg, showOutput):
@@ -36,6 +36,8 @@ def runGDALNeptuno(pathfile, showOutput=False):
     o = dict();
     o['msg'] = logOut
     o['error']   = False
+    
+    pathfile = os.path.normpath(pathfile)
     
     with open(pathfile) as config_file:
         config_file_contents = config_file.read()
@@ -279,7 +281,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
     logOut = _logMsg(logOut,"",showOutput)
 
     # DEM
-    orographyFAbs = os.path.join(path_workspace, orographyF[2:])
+    orographyFAbs = os.path.normpath(os.path.join(path_workspace, orographyF[2:]))
     if os.path.isfile(orographyFAbs):
         os.remove(orographyFAbs)
 
@@ -309,7 +311,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
         layername="fueltypes"
         pre, ext = os.path.splitext(fuelTypeF)
         fuel_c_db = pre+ '.sqlite'
-        fuel_c_dbAbs = os.path.join(path_workspace, fuel_c_db[2:])
+        fuel_c_dbAbs =os.path.normpath(os.path.join(path_workspace, fuel_c_db[2:]))
         if os.path.isfile(fuel_c_dbAbs):
             os.remove(fuel_c_dbAbs)
         
@@ -326,7 +328,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
         if os.path.isfile(fuelTypeF):
             os.remove(fuelTypeF)
     
-        fuelTypeFAbs = os.path.join(path_workspace, fuelTypeF[2:])
+        fuelTypeFAbs = os.path.normpath(os.path.join(path_workspace, fuelTypeF[2:]))
         cmdrasterize = f'gdal_rasterize  -a "Fuel" -l {layername} -of "GTiff" -a_srs {srs} -a_nodata {nodata} \
             -te  {xmin} {ymin} {xmax} {ymax} -tr {cellSize} {cellSize} \
             -ot "Int16" \
@@ -348,7 +350,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
     #areaTypeF
     if fuelTypeQ:
         logOut = _logMsg(logOut,"  area type ----> " + areaTypeF,showOutput)
-        areaTypeFAbs = os.path.join(path_workspace, areaTypeF[2:])
+        areaTypeFAbs = os.path.normpath(os.path.join(path_workspace, areaTypeF[2:]))
         if os.path.isfile(areaTypeFAbs):
             os.remove(areaTypeFAbs)
         if os.path.isfile(fuelTypeFAbs):
@@ -365,7 +367,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
         layername="fireBreaks"
         pre, ext = os.path.splitext(fccF)
         fcc_c_db =  pre + '.sqlite'
-        fcc_c_dbAbs = os.path.join(path_workspace, fcc_c_db)
+        fcc_c_dbAbs = os.path.normpath(os.path.join(path_workspace, fcc_c_db))
         if os.path.isfile(fcc_c_dbAbs):
             os.remove(fcc_c_dbAbs)
         
@@ -380,7 +382,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
         qgiscmd = QGISprefixPathBin + cmdogr
         os.system(qgiscmd)
         
-        fccFAbs = os.path.join(path_workspace, fccF[2:])
+        fccFAbs = os.path.normpath(os.path.join(path_workspace, fccF[2:]))
         if os.path.isfile(fccFAbs):
             os.remove(fccFAbs)
         #fccFrep = fccF.replace(' ','\\ ')
@@ -405,7 +407,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
   
     #temperatureDB
     if tempQ:
-        temperatureFAbs = os.path.join(path_workspace, temperatureF[2:])
+        temperatureFAbs = os.path.normpath(os.path.join(path_workspace, temperatureF[2:]))
         if os.path.isfile(temperatureFAbs):
             os.remove(temperatureFAbs)
 
@@ -485,8 +487,9 @@ def runGDALNeptuno(pathfile, showOutput=False):
         
     #ortophotoWMS
     if ortoQ:
-        if os.path.isfile(ortoF):
-            os.remove(ortoF)
+        ortoFAbs = os.path.normpath(os.path.join(path_workspace, ortoF))
+        if os.path.isfile(ortoFAbs):
+            os.remove(ortoFAbs)
         
      
         #orographyFrep = orographyF.replace(' ', '\\ ')
@@ -511,7 +514,7 @@ def runGDALNeptuno(pathfile, showOutput=False):
         #ortoFrep = ortoF.replace(' ', '\\ ')
         cmdtrans = f'gdal_translate -of PNG -outsize {reslX} {reslY} -projwin  {xmin} {ymax} {xmax} {ymin}   \
                     -projwin_srs {srs} -a_srs {srs}  \
-                    "{urlWMS}" "{ortoF}" >> "{path_LogNeptunoGDAL}"'
+                    "{urlWMS}" "{ortoFAbs}" >> "{path_LogNeptunoGDAL}"'
         qgiscmd = QGISprefixPathBin + cmdtrans
         os.system(qgiscmd)
 

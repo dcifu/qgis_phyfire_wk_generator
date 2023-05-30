@@ -70,10 +70,10 @@ class PhyFireWKGeneratorDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     def initialize(self):
         self.about_qdialog = None
 
-        path_file_qsettings = os.path.join(self.path_plugin, definitions.CONST_SETTINGS_FILE_NAME)
+        path_file_qsettings = os.path.normpath(os.path.join(self.path_plugin, definitions.CONST_SETTINGS_FILE_NAME))
         self.settings = QSettings(path_file_qsettings,QSettings.IniFormat)
         
-        self.path_datasource =os.path.join(self.path_plugin, definitions.CONST_SOURCE_PATH)  # os.path.join(self.path_plugin, 'examples', 'data', 'source')
+        self.path_datasource =os.path.normpath(os.path.join(self.path_plugin, definitions.CONST_SOURCE_PATH))  # os.path.join(self.path_plugin, 'examples', 'data', 'source')
 
         # Inicializar ROI combo
         existing_vector_layers = [l for l in QgsProject().instance().mapLayers().values() if isinstance(l, QgsVectorLayer)]
@@ -208,11 +208,11 @@ class PhyFireWKGeneratorDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     
     def _createWorkspaceSKLFolder(self):
         
-        path_workspace_sk = os.path.join(self.path_plugin, definitions.CONST_WK_SKELETON_PATH)
+        path_workspace_sk = os.path.normpath(os.path.join(self.path_plugin, "examples", "files", "wk-skeleton"))
         path_workspace = self.outputFolderQgsFileWidget.filePath()
         
         if not path_workspace:
-            path_workspace = os.path.join(self.path_plugin, "examples/data/workspace", str(self.uuid))
+            path_workspace = os.path.normpath(os.path.join(self.path_plugin, "examples", "data", "workspace", str(self.uuid)))
             if not os.path.isdir(path_workspace):
                 os.mkdir(path_workspace, 0o755)
                 
@@ -292,7 +292,7 @@ class PhyFireWKGeneratorDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         fileconfig.close()
     
     def _fillModelParamsFile(self, path_workspace):
-        path_wk_modelparams = os.path.join(path_workspace, 'Data', 'modelParameters.json')
+        path_wk_modelparams = os.path.normpath(os.path.join(path_workspace, 'Data', 'modelParameters.json'))
         fileparams = open(path_wk_modelparams, "rt")
         data_params = fileparams.read()
         data_params = data_params.replace('<TEMPLATE_INFO_SIMULATION_UUID>', str(self.uuid))
@@ -304,7 +304,8 @@ class PhyFireWKGeneratorDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     def checkPluginResources(self):
         
-        msg = "[x] CWD ( " + str(os.getcwd()) +")\n"
+        msg = "[x] CWD: " + str(os.path.join(QgsApplication.prefixPath(),'bin', '')) +"\n"
+        #msg = "[x] CWD ( " + str(os.getcwd()) +")\n"
         
         if int(gdal.VersionInfo()) > 3020000:
             msg += "[x] GDAL compatible ( " + str(gdal.__version__) +")\n"
@@ -427,7 +428,7 @@ class PhyFireWKGeneratorDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         
         # Crear fireSource.geojson
         fireSourceLayer = self.firesourceLayerComboBox.currentLayer()
-        path_out_file = os.path.join(path_workspace, 'Data', 'fireSource.geojson')
+        path_out_file = os.path.normpath(os.path.join(path_workspace, 'Data', 'fireSource.geojson'))
         QgsVectorFileWriter.writeAsVectorFormat(fireSourceLayer, path_out_file, 'utf-8', QgsCoordinateReferenceSystem(4326), 'GeoJson')
             
         # Check Capa windLayer
@@ -455,7 +456,7 @@ class PhyFireWKGeneratorDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             QgsVectorFileWriter.writeAsVectorFormat(firebreakLayer, path_out_file, 'utf-8', QgsCoordinateReferenceSystem(4326), 'GeoJson')
         
         #print("PathWorkspace ---> " + path_workspace)
-        fileconfig = os.path.join(path_workspace, 'config.json')
+        fileconfig = os.path.normpath(os.path.join(path_workspace, 'config.json'))
         
         GDALNeptunoLog = dict()
         GDALNeptunoLog["msg"] = ""
